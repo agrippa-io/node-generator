@@ -1,0 +1,29 @@
+import { Logger } from '@agrippa-io/node-utils/src'
+import * as mongoose from '@agrippa-io/node-mongoose/src'
+import { ExpressRequestMongooseUtil, UseCaseExecutor } from '@agrippa-io/node-mongoose/src/utils'
+import express from 'express'
+import MODEL from '../../constants/models'
+import Mongoose{{ pascalCase model }}UpdateMany from '../../usecases/{{ pascalCase model }}/MongooseUpdateMany'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/document'
+
+export default async (request : express.Request, response : express.Response) => {
+  Logger.route('PUT /v3/{{ snakeCase model }}s')
+
+  const queryBuilder : ExpressRequestMongooseUtil<InterfaceMongooseModel{{ pascalCase model }}> =
+    new ExpressRequestMongooseUtil<InterfaceMongooseModel{{ pascalCase model }}>(request)
+
+  const filterQuery : mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}> = queryBuilder.queryFilterQuery()
+  const updateQuery : mongoose.UpdateQuery<InterfaceMongooseModel{{ pascalCase model }}> = queryBuilder.bodyUpdateQuery()
+
+  const update{{ pascalCase model }} = new Mongoose{{ pascalCase model }}UpdateMany({
+    options: {},
+    filterQuery,
+    updateQuery
+  })
+
+  await update{{ pascalCase model }}.perform()
+
+  UseCaseExecutor.renderUseCase(update{{ pascalCase model }}, request, response, {
+    rootModel: MODEL.{{ constantCase model }}
+  })
+}

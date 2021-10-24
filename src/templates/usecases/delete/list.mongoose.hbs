@@ -1,0 +1,41 @@
+import * as mongoose from '@agrippa-io/node-mongoose/src'
+import { Logger } from '@agrippa-io/node-utils/src/Logger'
+import { UseCase } from '@agrippa-io/node-usecase/src'
+import MongooseCodes from '@agrippa-io/node-errors/src/constants/MongooseCodes'
+import ErrorAPI from '@agrippa-io/node-errors/src/ErrorAPI'
+import ErrorIncompleteDataModification from '@agrippa-io/node-errors/src/ErrorIncompleteDataModification'
+import {{ pascalCase model }} from '../../models/{{ pascalCase model }}'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interface'
+
+
+export interface InterfaceMongoose{{ pascalCase model }}DeleteMany {
+  options: any
+  filterQuery: mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}>
+}
+
+export default class Mongoose{{ pascalCase model }}DeleteOne extends UseCase {
+  // Class Properties
+  options: any
+  filterQuery: mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}>
+
+  constructor(mongooseConfig: InterfaceMongoose{{ pascalCase model }}DeleteMany) {
+    super()
+    const { options, filterQuery } = mongooseConfig
+    this.options = options
+    this.filterQuery = filterQuery
+  }
+
+  async perform() : Promise<void> {
+    Logger.debug('Triggered -> Mongoose{{ pascalCase model }}DeleteOne')
+    try {
+      const result = await {{ pascalCase model }}.find(this.filterQuery)
+      const deleteResult = await {{ pascalCase model }}.deleteMany(this.filterQuery)
+      if (deleteResult.ok !== 1) {
+        throw new ErrorIncompleteDataModification('Failed to delete all documents matching filter query')
+      }
+      this.setSuccess(result)
+    } catch (err) {
+      this.setFailure(err, [])
+    }
+  }
+}

@@ -1,0 +1,39 @@
+import * as mongoose from '@agrippa-io/node-mongoose/src'
+import { Logger } from '@agrippa-io/node-utils/src/Logger'
+import { UseCase } from '@agrippa-io/node-usecase/src'
+import MongooseCodes from '@agrippa-io/node-errors/src/constants/MongooseCodes'
+import ErrorAPI from '@agrippa-io/node-errors/src/ErrorAPI'
+import {{ pascalCase model }} from '../../models/{{ pascalCase model }}'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interface'
+
+
+export interface InterfaceMongoose{{ pascalCase model }}ReadMany {
+  query: mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}
+  projection?: any
+  options: mongoose.QueryOptions
+}
+
+export default class Mongoose{{ pascalCase model }}ReadMany extends UseCase {
+  // Class Properties
+  options: mongoose.QueryOptions
+  query: mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}>
+  projection: any
+
+  constructor(mongooseConfig: InterfaceMongoose{{ pascalCase model }}ReadMany) {
+    super()
+    const { query, projection, options } = mongooseConfig
+    this.options = options
+    this.query = query
+    this.projection = projection || {}
+  }
+
+  async perform() : Promise<void> {
+    Logger.debug('Triggered -> Mongoose{{ pascalCase model }}ReadMany')
+    try{
+      const result = await {{ pascalCase model }}.find(this.query)
+      this.setSuccess(result)
+    } catch (err) {
+      this.setFailure(err, [])
+    }
+  }
+}

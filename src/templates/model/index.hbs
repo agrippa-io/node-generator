@@ -1,0 +1,7 @@
+import path from 'path'
+import loadModel from '@agrippa-io/node-mongoose/src/ModelLoader/load/model'
+
+const loadPath = path.join(__dirname, '..')
+const modelName = path.basename(__dirname)
+
+export default loadModel(loadPath, modelName)

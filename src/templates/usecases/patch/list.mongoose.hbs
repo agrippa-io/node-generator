@@ -1,0 +1,44 @@
+import * as mongoose from '@agrippa-io/node-mongoose/src'
+import { Logger } from '@agrippa-io/node-utils/src/Logger'
+import { UseCase } from '@agrippa-io/node-usecase/src'
+import MongooseCodes from '@agrippa-io/node-errors/src/constants/MongooseCodes'
+import ErrorAPI from '@agrippa-io/node-errors/src/ErrorAPI'
+import ErrorIncompleteDataModification from '@agrippa-io/node-errors/src/ErrorIncompleteDataModification'
+import {{ pascalCase model }} from '../../models/{{ pascalCase model }}/index'
+import Interface{{ pascalCase model }}Doc from '../../models/{{ pascalCase model }}/interfaces/document'
+
+export interface InterfaceMongoose{{ pascalCase model }}UpdateOne {
+  options: mongoose.SaveOptions
+  filterQuery: mongoose.FilterQuery<Interface{{ pascalCase model }}Doc>
+  updateQuery: mongoose.UpdateQuery<Interface{{ pascalCase model }}Doc>
+}
+
+export default class Mongoose{{ pascalCase model }}PatchOne extends UseCase {
+  // Class Properties
+  options: mongoose.SaveOptions
+  filterQuery: mongoose.FilterQuery<Interface{{ pascalCase model }}Doc>
+  updateQuery: mongoose.UpdateQuery<Interface{{ pascalCase model }}Doc>
+
+  constructor(props: InterfaceMongoose{{ pascalCase model }}UpdateOne) {
+    super()
+    this.options = props.options
+    this.filterQuery = props.filterQuery
+    this.updateQuery = props.updateQuery
+  }
+
+  async perform(): Promise<void> {
+    try {
+      const patchResult = await {{ pascalCase model }}.updateMany(this.filterQuery, { $set: this.updateQuery })
+
+      if (patchResult.matchedCount !== patchResult.modifiedCount) {
+        throw new ErrorIncompleteDataModification('Failed to update all documents matching filter query')
+      }
+
+      const result = await {{ pascalCase model }}.find(this.filterQuery)
+
+      this.setSuccess(result)
+    } catch (err) {
+      this.setFailure(err, [])
+    }
+  }
+}

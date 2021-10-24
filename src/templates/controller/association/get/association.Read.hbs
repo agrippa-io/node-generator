@@ -1,0 +1,23 @@
+import Logger from '@agrippa-io/node-utils/src/Logger'
+import UseCaseExecutor from '@agrippa-io/node-mongoose/src/utils/UseCaseExecutor'
+import express from 'express'
+import MODEL from '../../../constants/models'
+import Association{{ pascalCase associationName }}Read from '../../../usecases/{{ pascalCase model }}/Association{{ pascalCase associationName }}Read'
+
+
+export default async (request : express.Request, response : express.Response) => {
+  Logger.route('GET /v3/{{ snakeCase model }}s/:id/{{ snakeCase associationName }}')
+  const { id : {{ camelCase model }}Id } = request.params
+
+  const read{{ pascalCase associationName }} = new Association{{ pascalCase associationName }}Read({
+    {{ camelCase model }}Id,
+    options: {}
+  })
+
+  await read{{ pascalCase associationName }}.perform()
+
+  // TODO - May need to replace rootModel
+  UseCaseExecutor.renderUseCase(read{{ pascalCase associationName }}, request, response, {
+    rootModel: MODEL.{{ constantCase associationModel }}
+  })
+}

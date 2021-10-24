@@ -1,0 +1,44 @@
+import * as mongoose from '@agrippa-io/node-mongoose/src'
+import { Logger } from '@agrippa-io/node-utils/src/Logger'
+import { UseCase } from '@agrippa-io/node-usecase/src'
+import MongooseCodes from '@agrippa-io/node-errors/src/constants/MongooseCodes'
+import ErrorAPI from '@agrippa-io/node-errors/src/ErrorAPI'
+import ErrorIncompleteDataModification from '@agrippa-io/node-errors/src/ErrorIncompleteDataModification'
+import {{ pascalCase model }} from '../../models/{{ pascalCase model }}'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interface'
+
+export interface InterfaceMongoose{{ pascalCase model }}UpdateMany {
+  options : mongoose.SaveOptions
+  filterQuery: mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}>
+  updateQuery: mongoose.UpdateQuery<InterfaceMongooseModel{{ pascalCase model }}>
+}
+
+export default class Mongoose{{ pascalCase model }}UpdateMany extends UseCase {
+  // Class Properties
+  options : mongoose.SaveOptions
+  filterQuery: mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}>
+  updateQuery: mongoose.UpdateQuery<InterfaceMongooseModel{{ pascalCase model }}>
+
+  constructor(props: InterfaceMongoose{{ pascalCase model }}UpdateMany) {
+    super()
+    this.options = props.options
+    this.filterQuery = props.filterQuery
+    this.updateQuery = props.updateQuery
+  }
+
+  async perform() : Promise<void> {
+    Logger.debug('Triggered -> Mongoose{{ pascalCase model }}UpdateMany')
+    try {
+      const updateResult = await {{ pascalCase model }}.updateMany(this.filterQuery, this.updateQuery)
+      Logger.debug('updateResult', updateResult)
+      if (updateResult.ok !== 1) {
+        throw new ErrorIncompleteDataModification('Failed to update all documents matching filter query')
+      }
+      // TODO - Create new filterQuery to match results of updateQuery
+      const result = await {{ pascalCase model }}.find(this.filterQuery)
+      this.setSuccess(result)
+    } catch (err) {
+      this.setFailure(err, [])
+    }
+  }
+}

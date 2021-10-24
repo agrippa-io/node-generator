@@ -1,0 +1,13 @@
+import { Logger } from '@agrippa-io/node-utils/src'
+import {{ pascalCase associationName }} from '../../{{ pascalCase associationName }}'
+
+export default async function get{{ pascalCase model }}{{ pascalCase associationName }}() {
+  try {
+    // TODO - May need to replace 'find' method
+    return await {{ pascalCase associationName }}.findOne({ _id : this.{{ camelCase associationName }}Id })
+  } catch(err) {
+    Logger.error(`Failed Asset.virtual('{{ camelCase associationName }}').get(handler)`)
+    Logger.error(err)
+    return undefined
+  }
+}

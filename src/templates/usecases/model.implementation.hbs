@@ -1,0 +1,25 @@
+import { UseCase } from '@agrippa-io/node-usecase/src'
+import {{pascalCase model}} from '../models/{{pascalCase model}}'
+
+export interface InterfaceUseCaseProps{{pascalCase model}}{{pascalCase name}} {
+  name: string
+}
+
+export default class UseCase{{pascalCase model}}{{pascalCase name}} extends UseCase {
+  // Class Properties
+  data : InterfaceUseCaseProps{{pascalCase model}}{{pascalCase name}}
+
+  constructor(data: InterfaceUseCaseProps{{pascalCase model}}{{pascalCase name}}) {
+    super()
+    this.data = data
+  }
+
+  async perform() : Promise<void> {
+    try {
+      const result = await (new {{pascalCase model}}(this.data)).save()
+      this.setSuccess(result)
+    } catch (err) {
+      this.setFailure(err, [])
+    }
+  }
+}

@@ -1,0 +1,23 @@
+import { Logger } from '@agrippa-io/node-utils/src'
+import * as mongoose from '@agrippa-io/node-mongoose/src'
+import { UseCaseExecutor } from '@agrippa-io/node-mongoose/src/utils'
+import express from 'express'
+import MODEL from '../../constants/models'
+import Mongoose{{ pascalCase model }}CreateOne, { InterfaceMongoose{{ pascalCase model }}CreateOne } from '../../usecases/{{ pascalCase model }}/MongooseCreateOne'
+
+export default async (request : express.Request, response : express.Response) => {
+  Logger.route('POST /v3/{{ snakeCase model }}s')
+  const { body : data } = request
+
+  const create{{ pascalCase model }}Props : InterfaceMongoose{{ pascalCase model }}CreateOne = {
+    data,
+    options: {}
+  }
+  const create{{ pascalCase model }} = new Mongoose{{ pascalCase model }}CreateOne(create{{ pascalCase model }}Props)
+
+  await create{{ pascalCase model }}.perform()
+
+  UseCaseExecutor.renderUseCase(create{{ pascalCase model }}, request, response, {
+    rootModel: MODEL.{{ constantCase model }}
+  })
+}

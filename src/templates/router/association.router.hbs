@@ -1,0 +1,19 @@
+import { Logger } from '@agrippa-io/node-utils/src/Logger'
+import express from 'express'
+import ExpressRouterActions from '../../utils/VigorExpressFramework/constants/ExpressRouterActions'
+import { snakeCase } from 'change-case'
+import {{ pascalCase model }}AssociationController from '../../controllers/{{ pascalCase model }}/associations'
+
+const {{ pascalCase model }}AssociationRouter = express.Router({ mergeParams: true })
+
+Object.keys({{ pascalCase model }}AssociationController).forEach(associationKey => {
+  const [ rootModel, association, actionMethod ] = associationKey.split('.')
+  const path = snakeCase(association)
+  const expressRouterMethod : string = ExpressRouterActions[actionMethod]
+  // TODO - Remove/Comment out logger after implementation verification
+  Logger.debug('{{ pascalCase model }}AssociationController - (associationKey, path, actionMethod)', associationKey, path, actionMethod, expressRouterMethod)
+  {{ pascalCase model }}AssociationRouter[expressRouterMethod](`/${path}`, {{ pascalCase model}}AssociationController[associationKey])
+})
+
+// TODO - Manually wire-up in {{ pascalCase model }} Router: `{{ pascalCase model }}Router.use('/:id', {{ pascalCase model }}AssociationRouter)`
+export default {{ pascalCase model }}AssociationRouter

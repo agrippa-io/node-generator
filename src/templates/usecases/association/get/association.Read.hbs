@@ -1,0 +1,41 @@
+import * as mongoose from '@agrippa-io/node-mongoose/src'
+import { Logger } from '@agrippa-io/node-utils/Logger'
+import { UseCase } from '@agrippa-io/node-usecase/src/UseCase'
+import { ErrorAPI } from '@agrippa-io/node-errors/src/ErrorAPI'
+import { ErrorResourceNotFound } from '@agrippa-io/node-errors/src/ErrorResourceNotFound'
+import {{ pascalCase model }} from '../../models/{{ pascalCase model }}/index'
+
+export interface InterfaceAssociation{{ pascalCase associationName }}Read {
+  {{ camelCase model }}Id: string
+  options: any
+}
+
+export default class Association{{ pascalCase associationName }}Read extends UseCase {
+  // Class Properties
+  {{ camelCase model }}Id: mongoose.Types.ObjectId
+  options: any
+
+  constructor(data: InterfaceAssociation{{ pascalCase associationName }}Read) {
+    super()
+    const { {{ camelCase model }}Id, options } = data
+    this.options = options
+    this.{{ camelCase model }}Id = mongoose.Types.ObjectId({{ camelCase model }}Id)
+  }
+
+  async perform() : Promise<void> {
+    Logger.debug('Triggered -> Association{{ pascalCase associationName }}Read')
+    try {
+      const {{ camelCase model }} : any = await {{ pascalCase model }}.findOne({ _id: this.{{ camelCase model }}Id })
+
+      if (!{{ camelCase model }}) {
+        throw new ErrorResourceNotFound('Root {{ pascalCase model }} Resource does not exist')
+      }
+
+      const {{ camelCase associationName }} : any = await {{ camelCase model }}.{{ camelCase associationName }}
+      this.setSuccess({{ camelCase associationName }})
+    } catch (err) {
+      const error : ErrorAPI = err.prototype.name === 'ErrorAPI' ? err : new ErrorAPI(err)
+      this.setFailure(error, [])
+    }
+  }
+}

@@ -1,0 +1,36 @@
+import * as mongoose from '@agrippa-io/node-mongoose/src'
+import { Logger } from '@agrippa-io/node-utils/src/Logger'
+import { UseCase } from '@agrippa-io/node-usecase/src'
+import MongooseCodes from '@agrippa-io/node-errors/src/constants/MongooseCodes'
+import ErrorAPI from '@agrippa-io/node-errors/src/ErrorAPI'
+import {{ pascalCase model }} from '../../models/{{ pascalCase model }}'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interface'
+
+
+export interface InterfaceMongoose{{ pascalCase model }}ReadOne {
+  options: any
+  query: mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}>
+}
+
+export default class MongooseUserReadOne extends UseCase {
+  // Class Properties
+  options: any
+  query: mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}>
+
+  constructor(mongooseConfig: InterfaceMongoose{{ pascalCase model }}ReadOne) {
+    super()
+    const { options, query } = mongooseConfig
+    this.options = options
+    this.query = query
+  }
+
+  async perform() : Promise<void> {
+    Logger.debug('Triggered -> Mongoose{{ pascalCase model }}ReadOne')
+    try {
+      const result = await {{ pascalCase model }}.findOne(this.query)
+      this.setSuccess(result)
+    } catch (err) {
+      this.setFailure(err, [])
+    }
+  }
+}

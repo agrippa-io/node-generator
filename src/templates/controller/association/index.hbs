@@ -1,0 +1,7 @@
+import { mapMethodsFromSiblingFiles, Logger } from '@agrippa-io/node-utils/src'
+
+const {{ pascalCase model }}AssociationController = mapMethodsFromSiblingFiles(__dirname, { asLastNode: false })
+// TODO - Remove/Comment out logger after implementation verification
+Logger.debug('{{ pascalCase model }}AssociationController', {{ pascalCase model }}AssociationController)
+
+export default {{ pascalCase model }}AssociationController

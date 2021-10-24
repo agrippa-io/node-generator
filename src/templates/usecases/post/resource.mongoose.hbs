@@ -1,0 +1,36 @@
+import * as mongoose from '@agrippa-io/node-mongoose/src'
+import { Logger } from '@agrippa-io/node-utils/src/Logger'
+import { UseCase } from '@agrippa-io/node-usecase/src'
+import MongooseCodes from '@agrippa-io/node-errors/src/constants/MongooseCodes'
+import ErrorAPI from '@agrippa-io/node-errors/src/ErrorAPI'
+import ErrorIncompleteDataModification from '@agrippa-io/node-errors/src/ErrorIncompleteDataModification'
+import {{ pascalCase model }} from '../../models/{{ pascalCase model }}'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interface'
+
+export interface InterfaceMongoose{{ pascalCase model }}CreateOne {
+  data : InterfaceMongooseModel{{ pascalCase model }}
+  options : mongoose.SaveOptions
+}
+
+export default class Mongoose{{ pascalCase model }}CreateOne extends UseCase {
+  // Class Properties
+  data : InterfaceMongooseModel{{ pascalCase model }}
+  options : mongoose.SaveOptions
+
+  constructor(props: InterfaceMongoose{{ pascalCase model }}CreateOne) {
+    super()
+    this.data = props.data
+    this.options = props.options
+  }
+
+  async perform() : Promise<void> {
+    Logger.debug('Triggered -> Mongoose{{ pascalCase model }}CreateOne')
+    try {
+      const {{ camelCase model }} = await (new {{ pascalCase model }}(this.data)).save()
+      this.setSuccess({{ camelCase model }})
+    } catch (err) {
+      // TODO - Handle Model Validation Errors
+      this.setFailure(new ErrorAPI(err), [])
+    }
+  }
+}

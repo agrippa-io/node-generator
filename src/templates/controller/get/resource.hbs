@@ -1,0 +1,25 @@
+import { Logger } from '@agrippa-io/node-utils/src'
+import * as mongoose from '@agrippa-io/node-mongoose/src'
+import { UseCaseExecutor } from '@agrippa-io/node-mongoose/src/utils'
+import express from 'express'
+import MODEL from '../../constants/models'
+import Mongoose{{ pascalCase model }}ReadOne from '../../usecases/{{ pascalCase model }}/MongooseReadOne'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/document'
+
+
+export default async (request : express.Request, response : express.Response) => {
+  Logger.route('GET /v3/{{ snakeCase model }}s/:id')
+  const { id : _id } = request.params
+
+  const query : mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}> = { _id }
+  const read{{ pascalCase model }} = new Mongoose{{ pascalCase model }}ReadOne({
+    query,
+    options: {}
+  })
+
+  await read{{ pascalCase model }}.perform()
+
+  UseCaseExecutor.renderUseCase(read{{ pascalCase model }}, request, response, {
+    rootModel: MODEL.{{ constantCase model }}
+  })
+}
