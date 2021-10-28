@@ -1,11 +1,14 @@
 {
   "name": "@agrippa-io/node-generator",
   "description": "Plop is a scaffolding tool used to build out a file structure that would otherwise take a lot of your time just creating files at the right location with the right naming conventions.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "plopfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate": "plop"
+  },
+  "bin": {
+    "generate": "./bin/generate.sh"
   },
   "author": "Agrippa Development Team",
   "license": "UNLICENSED",
