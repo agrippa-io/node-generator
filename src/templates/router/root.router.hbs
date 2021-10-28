@@ -1,0 +1,10 @@
+import express from 'express'
+
+// Model Routers
+import Router{{ pascalCase version }} from './{{ lowerCase version }}'
+
+export default (app: express.Application): express.Application => {
+  app.use(Router{{ pascalCase version }})
+
+  return app
+}

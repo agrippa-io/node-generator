@@ -3,8 +3,8 @@ import * as mongoose from '@agrippa-io/node-mongoose/src'
 import { UseCaseExecutor } from '@agrippa-io/node-mongoose/src/utils'
 import express from 'express'
 import MODEL from '../../constants/models'
-import Mongoose{{ pascalCase model }}DeleteOne from '../../usecases/{{ pascalCase model }}/MongooseDeleteOne'
-import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/document'
+import {{ pascalCase model }}DeleteOne from '../../usecases/{{ pascalCase model }}/delete.resource.mongoose'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interfaces/document'
 
 
 export default async (request : express.Request, response : express.Response) => {
@@ -13,7 +13,7 @@ export default async (request : express.Request, response : express.Response) =>
 
   const filterQuery : mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}> = { _id : id }
 
-  const delete{{ pascalCase model }} = new Mongoose{{ pascalCase model }}DeleteOne({
+  const delete{{ pascalCase model }} = new {{ pascalCase model }}DeleteOne({
     options: {},
     filterQuery
   })

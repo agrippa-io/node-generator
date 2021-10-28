@@ -1,10 +1,10 @@
-import { Logger } from '@agrippa-io/node-utils/src'
-import * as mongoose from '@agrippa-io/node-mongoose/src'
-import { ExpressRequestMongooseUtil, UseCaseExecutor } from '@agrippa-io/node-mongoose/src/utils'
+import { Logger } from '@agrippa-io/node-utils'
+import { mongoose } from '@agrippa-io/node-mongoose'
+import { ExpressRequestMongooseUtil, UseCaseExecutor } from '@agrippa-io/node-mongoose'
 import express from 'express'
 import MODEL from '../../constants/models'
-import Mongoose{{ pascalCase model }}DeleteMany from '../../usecases/{{ pascalCase model }}/MongooseDeleteMany'
-import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/document'
+import {{ pascalCase model }}DeleteMany from '../../usecases/{{ pascalCase model }}/delete.list.mongoose'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interfaces/document'
 
 export default async (request : express.Request, response : express.Response) => {
   Logger.route('DELETE /v3/{{ snakeCase model }}s')
@@ -13,7 +13,7 @@ export default async (request : express.Request, response : express.Response) =>
 
   const filterQuery : mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}> = queryBuilder.queryFilterQuery()
 
-  const update{{ pascalCase model }} = new Mongoose{{ pascalCase model }}DeleteMany({
+  const update{{ pascalCase model }} = new {{ pascalCase model }}DeleteMany({
     options: {},
     filterQuery
   })

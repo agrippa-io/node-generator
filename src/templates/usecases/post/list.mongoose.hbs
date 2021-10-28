@@ -1,9 +1,7 @@
-import { Logger } from '@agrippa-io/node-utils/src/Logger'
-import { UseCase } from '@agrippa-io/node-usecase/src'
-import MongooseCodes from '@agrippa-io/node-errors/src/constants/MongooseCodes'
-import ErrorAPI from '@agrippa-io/node-errors/src/ErrorAPI'
+import { Logger } from '@agrippa-io/node-utils'
+import { UseCase } from '@agrippa-io/node-usecase'
 import {{ pascalCase model }} from '../../models/{{ pascalCase model }}'
-import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interface'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interfaces/document'
 
 
 export interface InterfaceMongoose{{ pascalCase model }}CreateMany {
@@ -30,6 +28,7 @@ export default class Mongoose{{ pascalCase model }}CreateMany extends UseCase {
       for (const {{ camelCase model }}Data of this.data) {
         const {{ camelCase model }}Instance = new {{ pascalCase model }}({{ camelCase model }}Data)
         const {{ camelCase model }} = await {{ camelCase model }}Instance.save()
+
         // TODO - Handle {{ pascalCase model }} creation errors
         results.push({{ camelCase model }})
       }

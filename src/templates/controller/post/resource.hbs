@@ -3,7 +3,7 @@ import * as mongoose from '@agrippa-io/node-mongoose/src'
 import { UseCaseExecutor } from '@agrippa-io/node-mongoose/src/utils'
 import express from 'express'
 import MODEL from '../../constants/models'
-import Mongoose{{ pascalCase model }}CreateOne, { InterfaceMongoose{{ pascalCase model }}CreateOne } from '../../usecases/{{ pascalCase model }}/MongooseCreateOne'
+import Mongoose{{ pascalCase model }}CreateOne, { InterfaceMongoose{{ pascalCase model }}CreateOne } from '../../usecases/{{ pascalCase model }}/post.resource.mongoose'
 
 export default async (request : express.Request, response : express.Response) => {
   Logger.route('POST /v3/{{ snakeCase model }}s')

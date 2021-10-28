@@ -1,0 +1,30 @@
+import express from 'express'
+import { ServerConfiguration, requestEscaper, responseEscaper } from '@agrippa-io/node-middlewares'
+import { ErrorAPI } from '@agrippa-io/node-errors'
+import { Logger } from '@agrippa-io/node-utils'
+import Router from './routes'
+
+// Create an Express App Instance
+const app: express.Application = express()
+
+app.set('trust proxy', 1)
+app.set('json escape', true)
+
+// Register Application Level Middlewares
+ServerConfiguration(app)
+
+app.use(requestEscaper)
+app.use(responseEscaper)
+
+// Register Routes
+Router(app)
+
+// Catch All Unhandled Server Errors
+app.use((err, req, res, next) => {
+  Logger.error('No error handler: ', err.message)
+  Logger.error(err.trace())
+  res.status(500)
+  res.send(new ErrorAPI('Unhandled Exception'))
+})
+
+export default app

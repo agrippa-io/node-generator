@@ -4,6 +4,7 @@ const { FILE_MODEL_INTERFACE } = require('../constants/file.model.interface.mong
 
 function addFiles(destPath, templatePath, includeTests = false) {
   const requiredFiles = [
+    addModelConstants(destPath, templatePath),
     ...FILE_MODEL_IMPLEMENTATION.map((file) => addModelFile(destPath, templatePath, file)),
     ...FILE_MODEL_INTERFACE.map((file) => addModelInterfaceFile(destPath, templatePath, file)),
   ]
@@ -13,10 +14,19 @@ function addFiles(destPath, templatePath, includeTests = false) {
     : requiredFiles
 }
 
+function addModelConstants(destPath, templatePath) {
+  return {
+    type: 'add',
+    path: `${destPath}/constants/models.ts`,
+    templateFile: `${templatePath}/constants/models.hbs`,
+    skipIfExists: true,
+  }
+}
+
 function addModelFile(destPath, templatePath, file) {
   return {
     type: 'add',
-    path: `${destPath}/models/{{ pascalCase model }}/${file}.js`,
+    path: `${destPath}/models/{{ pascalCase model }}/${file}.ts`,
     templateFile: `${templatePath}/model/${file}.hbs`,
     skipIfExists: true,
   }

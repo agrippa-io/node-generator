@@ -1,10 +1,10 @@
-import DEFAULT_FIELDS from '@agrippa-io/node-mongoose/src/MongooseModeler/constants/MongooseFields'
+import { MongooseFields } from '@agrippa-io/node-mongoose'
 
 export default class {{ pascalCase model }}Serializer {
   static get fields() {
     const aliasMap = {{ pascalCase model }}Serializer.associationAliases
     return [
-      ...DEFAULT_FIELDS,
+      ...MongooseFields,
       ...{{ pascalCase model }}Serializer.properties,
       ...{{ pascalCase model }}Serializer.associations,
       ...Object.values(aliasMap).reduce((allAliases, propAliases) => {
@@ -13,31 +13,31 @@ export default class {{ pascalCase model }}Serializer {
     ]
   }
 
-  static get properties() {
+  static get properties(): string[] {
     return [
       'name',
     ]
   }
 
-  static get associations() {
+  static get associations(): string[] {
     return [
 
     ]
   }
 
-  static get associationAliases() {
+  static get associationAliases(): Record<string, string> {
     return {
 
     }
   }
 
-  static get aliasOrigin() {
+  static get aliasOrigin(): Record<string, string> {
     return {
 
     }
   }
 
-  static get associationTypeMap() {
+  static get associationTypeMap(): Record<string, string> {
     return {
 
     }

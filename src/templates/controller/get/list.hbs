@@ -1,10 +1,10 @@
-import { Logger } from '@agrippa-io/node-utils/src'
-import * as mongoose from '@agrippa-io/node-mongoose/src'
-import { ExpressRequestMongooseUtil, UseCaseExecutor } from '@agrippa-io/node-mongoose/src/utils'
+import { Logger } from '@agrippa-io/node-utils'
+import { mongoose } from '@agrippa-io/node-mongoose'
+import { ExpressRequestMongooseUtil, UseCaseExecutor } from '@agrippa-io/node-mongoose'
 import express from 'express'
 import MODEL from '../../constants/models'
-import Mongoose{{ pascalCase model }}ReadMany from '../../usecases/{{ pascalCase model }}/MongooseReadMany'
-import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/document'
+import {{ pascalCase model }}ReadMany from '../../usecases/{{ pascalCase model }}/get.list.mongoose'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interfaces/document'
 
 export default async (request : express.Request, response : express.Response) => {
   Logger.route('GET /v3/{{ snakeCase model }}s')
@@ -12,7 +12,7 @@ export default async (request : express.Request, response : express.Response) =>
   new ExpressRequestMongooseUtil<InterfaceMongooseModel{{ pascalCase model }}>(request)
   const query : mongoose.FilterQuery<InterfaceMongooseModel{{ pascalCase model }}> = queryBuilder.queryFilterQuery()
 
-  const read{{ pascalCase model }} = new Mongoose{{ pascalCase model }}ReadMany({
+  const read{{ pascalCase model }} = new {{ pascalCase model }}ReadMany({
     query,
     options: {}
   })

@@ -1,10 +1,10 @@
-import { Logger } from '@agrippa-io/node-utils/src'
-import * as mongoose from '@agrippa-io/node-mongoose/src'
-import { ExpressRequestMongooseUtil, UseCaseExecutor } from '@agrippa-io/node-mongoose/src/utils'
+import { Logger } from '@agrippa-io/node-utils'
+import { mongoose } from '@agrippa-io/node-mongoose'
+import { ExpressRequestMongooseUtil, UseCaseExecutor } from '@agrippa-io/node-mongoose'
 import express from 'express'
 import MODEL from '../../constants/models'
-import Mongoose{{ pascalCase model }}UpdateOne from '../../usecases/{{ pascalCase model }}/MongooseUpdateOne'
-import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interface'
+import Mongoose{{ pascalCase model }}UpdateOne from '../../usecases/{{ pascalCase model }}/put.list.mongoose'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interfaces/document'
 
 export default async (request : express.Request, response : express.Response) => {
   Logger.route('PUT /v3/{{ snakeCase model }}s/:id')
@@ -24,7 +24,7 @@ export default async (request : express.Request, response : express.Response) =>
 
   await update{{ pascalCase model }}.perform()
 
-  UseCaseExecutor.renderUseCase(update{{ pascalCase model }}, response, {}, {
+  UseCaseExecutor.renderUseCase(update{{ pascalCase model }}, request, response, {
     rootModel: MODEL.{{ constantCase model }}
   })
 }

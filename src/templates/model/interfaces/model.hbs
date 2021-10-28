@@ -1,6 +1,6 @@
-import { Model } from 'agrippa-io/node-mongoose/src'
+import { mongoose } from '@agrippa-io/node-mongoose'
 import Interface{{ pascalCase model }}Doc from './document'
 
-export interface Interface{{ pascalCase model }}Model extends Model<Interface{{ pascalCase model }}Doc> {
+export interface Interface{{ pascalCase model }}Model extends mongoose.Model<Interface{{ pascalCase model }}Doc> {
 
 }

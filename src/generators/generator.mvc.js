@@ -7,6 +7,7 @@ const { RESOURCE_TYPE } = require('../constants/type.resource')
 const { SELECTION_METHOD } = require('../constants/selection.method')
 const { METHOD_BY_INDEX } = require('../constants/selection.methodByIndex')
 
+const AppActions = require('../plopActions/app.plopActions')
 const ControllerActions = require('../plopActions/controller.plopActions')
 const ModelActions = require('../plopActions/model.plopActions')
 const RouterActions = require('../plopActions/router.plopActions')
@@ -16,6 +17,13 @@ module.exports = {
   description:
     'Creates a fully functional REST API Endpoint, including the Mongoose Model, Express Router and Controller',
   prompts: [
+    {
+      type: 'list',
+      name: 'version',
+      message: 'Select Version:',
+      default: 0,
+      choices: ['v1', 'v2', 'v3'],
+    },
     {
       type: 'input',
       name: 'model',
@@ -40,7 +48,10 @@ function actions(data) {
 
   const methodMap = createMethodNamesFromSelection(selectedMethods)
 
-  const requiredActions = [...ModelActions.addFiles(PATH_SRC, PATH_TEMPLATES, includeTests)]
+  const requiredActions = [
+    ...AppActions.addFiles(PATH_SRC, PATH_TEMPLATES),
+    ...ModelActions.addFiles(PATH_SRC, PATH_TEMPLATES, includeTests),
+  ]
 
   if (isEmpty(methodMap)) {
     return requiredActions

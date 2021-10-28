@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "build": "tsc",
+    "start:dev": "ts-node-dev --transpile-only --respawn --watch src,test src/server.ts",
+    "start": "node ./dist/server.js"
+  },
+  "dependencies": {
+    "@agrippa-io/node-connection-manager": "^1.0.5",
+    "@agrippa-io/node-errors": "^1.0.5",
+    "@agrippa-io/node-middlewares": "^1.0.4",
+    "@agrippa-io/node-mongoose": "^1.0.8",
+    "@agrippa-io/node-usecase": "^1.0.2",
+    "@agrippa-io/node-utils": "^1.0.4",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.11.4",
+    "ts-node-dev": "^1.1.8"
+  }
+}

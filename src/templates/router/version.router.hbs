@@ -1,0 +1,13 @@
+import express from 'express'
+import { catchAllErrors } from '@agrippa-io/node-middlewares'
+import {{ pascalCase model }}Router from './{{ pascalCase model }}'
+
+const Router{{ pascalCase version }}Models = express.Router()
+
+Router{{ pascalCase version }}Models.use('/{{ snakeCase model }}', {{ pascalCase model }}Router)
+
+const Router{{ pascalCase version }} = express.Router()
+
+Router{{ pascalCase version }}.use('/{{ lowerCase version }}', Router{{ pascalCase version }}Models, catchAllErrors)
+
+export default Router{{ pascalCase version }}

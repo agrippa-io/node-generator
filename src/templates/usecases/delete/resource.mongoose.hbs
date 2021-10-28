@@ -1,11 +1,9 @@
-import * as mongoose from '@agrippa-io/node-mongoose/src'
-import { Logger } from '@agrippa-io/node-utils/src/Logger'
-import { UseCase } from '@agrippa-io/node-usecase/src'
-import MongooseCodes from '@agrippa-io/node-errors/src/constants/MongooseCodes'
-import ErrorAPI from '@agrippa-io/node-errors/src/ErrorAPI'
-import ErrorIncompleteDataModification from '@agrippa-io/node-errors/src/ErrorIncompleteDataModification'
+import { mongoose } from '@agrippa-io/node-mongoose'
+import { Logger } from '@agrippa-io/node-utils'
+import { UseCase } from '@agrippa-io/node-usecase'
+import { ErrorAPI, ErrorIncompleteDataModification } from '@agrippa-io/node-errors'
 import {{ pascalCase model }} from '../../models/{{ pascalCase model }}'
-import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interface'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interfaces/document'
 
 
 export interface InterfaceMongoose{{ pascalCase model }}DeleteOne {
@@ -30,9 +28,12 @@ export default class Mongoose{{ pascalCase model }}DeleteOne extends UseCase {
     try {
       const result = await {{ pascalCase model }}.findOne(this.filterQuery)
       const deleteResult = await {{ pascalCase model }}.deleteOne(this.filterQuery)
+
+      // @ts-ignore
       if (deleteResult.ok !== 1) {
         throw new ErrorIncompleteDataModification('Failed to delete document matching filter query')
       }
+
       this.setSuccess(result)
     } catch (err) {
       this.setFailure(new ErrorAPI(err), [])

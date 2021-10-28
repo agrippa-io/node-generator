@@ -1,9 +1,7 @@
-import * as mongoose from '@agrippa-io/node-mongoose/src'
-import { Logger } from '@agrippa-io/node-utils/src/Logger'
-import { UseCase } from '@agrippa-io/node-usecase/src'
-import MongooseCodes from '@agrippa-io/node-errors/src/constants/MongooseCodes'
-import ErrorAPI from '@agrippa-io/node-errors/src/ErrorAPI'
-import ErrorIncompleteDataModification from '@agrippa-io/node-errors/src/ErrorIncompleteDataModification'
+import { mongoose } from '@agrippa-io/node-mongoose'
+import { Logger } from '@agrippa-io/node-utils'
+import { UseCase } from '@agrippa-io/node-usecase'
+import { ErrorIncompleteDataModification } from '@agrippa-io/node-errors'
 import {{ pascalCase model }} from '../../models/{{ pascalCase model }}/index'
 import Interface{{ pascalCase model }}Doc from '../../models/{{ pascalCase model }}/interfaces/document'
 

@@ -71,7 +71,7 @@ function addModelUseCaseTestFile(destPath, templatePath) {
 function addModelVirtualFile(destPath, templatePath, virtualType) {
   return {
     type: 'add',
-    path: `${destPath}/models/{{ pascalCase model }}/virtuals/${virtualType}.{{ camelCase associationName }}.js`,
+    path: `${destPath}/models/{{ pascalCase model }}/virtuals/${virtualType}.{{ camelCase associationName }}.ts`,
     templateFile: `${templatePath}/model/virtuals/${virtualType}.association.hbs`,
     skipIfExists: true,
   }
@@ -80,7 +80,7 @@ function addModelVirtualFile(destPath, templatePath, virtualType) {
 function addModelVirtualTestFile(destPath, templatePath, virtualType) {
   return {
     type: 'add',
-    path: `${destPath}/tests/models/{{ pascalCase model }}/virtuals/${virtualType}.{{ camelCase associationName }}.test.js`,
+    path: `${destPath}/tests/models/{{ pascalCase model }}/virtuals/${virtualType}.{{ camelCase associationName }}.test.ts`,
     templateFile: `${templatePath}/model/virtuals/${virtualType}.association.test.hbs`,
     skipIfExists: true,
   }

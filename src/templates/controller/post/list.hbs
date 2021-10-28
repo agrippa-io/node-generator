@@ -1,10 +1,10 @@
-import { Logger } from '@agrippa-io/node-utils/src'
-import * as mongoose from '@agrippa-io/node-mongoose/src'
-import { UseCaseExecutor } from '@agrippa-io/node-mongoose/src/utils'
+import { Logger } from '@agrippa-io/node-utils'
+import { mongoose } from '@agrippa-io/node-mongoose'
+import { UseCaseExecutor } from '@agrippa-io/node-mongoose'
 import express from 'express'
 import MODEL from '../../constants/models'
-import Mongoose{{ pascalCase model }}CreateMany from '../../usecases/{{ pascalCase model }}/MongooseCreateMany'
-import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/document'
+import {{ pascalCase model }}CreateMany from '../../usecases/{{ pascalCase model }}/post.list.mongoose'
+import InterfaceMongooseModel{{ pascalCase model }} from '../../models/{{ pascalCase model }}/interfaces/document'
 
 
 export default async (request : express.Request, response : express.Response) => {
@@ -12,7 +12,7 @@ export default async (request : express.Request, response : express.Response) =>
   const { body } = request
 
   const data : InterfaceMongooseModel{{ pascalCase model }}[] = body
-  const createMany{{ pascalCase model }}s = new Mongoose{{ pascalCase model }}CreateMany({
+  const createMany{{ pascalCase model }}s = new {{ pascalCase model }}CreateMany({
     data,
     options: {}
   })

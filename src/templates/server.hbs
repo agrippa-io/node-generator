@@ -1,0 +1,29 @@
+// import * as https from 'https'
+import * as http from 'http'
+
+import { ConnectionManager as CM } from '@agrippa-io/node-connection-manager'
+import { Logger } from '@agrippa-io/node-utils'
+
+// App Modules
+import app from './app'
+
+import { SystemConfig } from './config/SystemConfig'
+
+// Constants
+const { NODE_ENV, PORT } = SystemConfig
+const ConnectionManager = CM.getInstance()
+
+// Initialize the Server
+init()
+
+async function init() {
+  await ConnectionManager.init(async () => {
+    Logger.info('Starting Server...')
+    Logger.info(`NODE_ENV: ${NODE_ENV}`)
+
+    http.createServer(app).listen(PORT)
+    // https.createServer(options, app).listen(443)
+
+    Logger.info(`Complete - Server Running on ${PORT}`)
+  })
+}

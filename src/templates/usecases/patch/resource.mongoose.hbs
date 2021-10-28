@@ -1,10 +1,8 @@
-import * as mongoose from '@agrippa-io/node-mongoose/src'
-import { Logger } from '@agrippa-io/node-utils/src/Logger'
-import { UseCase } from '@agrippa-io/node-usecase/src'
-import MongooseCodes from '@agrippa-io/node-errors/src/constants/MongooseCodes'
-import { FAILURE_UPDATE_ONE } from '../../utils/MongooseModeler/constants/result.update'
-import ErrorAPI from '@agrippa-io/node-errors/src/ErrorAPI'
-import ErrorIncompleteDataModification from '@agrippa-io/node-errors/src/ErrorIncompleteDataModification'
+import { mongoose } from '@agrippa-io/node-mongoose'
+import { Logger } from '@agrippa-io/node-utils'
+import { UseCase } from '@agrippa-io/node-usecase'
+import { FAILURE_UPDATE_ONE } from '@agrippa-io/node-mongoose'
+import { ErrorIncompleteDataModification } from '@agrippa-io/node-errors'
 import {{ pascalCase model }} from '../../models/{{ pascalCase model }}/index'
 import Interface{{ pascalCase model }}Doc from '../../models/{{ pascalCase model }}/interfaces/document'
 
@@ -31,6 +29,7 @@ export default class Mongoose{{ pascalCase model }}PatchOne extends UseCase {
     try {
       const patchResult = await {{ pascalCase model }}.updateOne(this.filterQuery, { $set: this.updateQuery })
 
+      // @ts-ignore
       if (patchResult.ok === FAILURE_UPDATE_ONE) {
         throw new ErrorIncompleteDataModification('Failed to update document matching filter query')
       }
@@ -39,6 +38,7 @@ export default class Mongoose{{ pascalCase model }}PatchOne extends UseCase {
 
       this.setSuccess(result)
     } catch (err) {
+      Logger.error(`Failed to update {{ pascalCase model }}['${this.filterQuery._id}']`, err)
       this.setFailure(err, [])
     }
   }

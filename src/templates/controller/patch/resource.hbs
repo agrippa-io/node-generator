@@ -1,10 +1,10 @@
-import { Logger } from '@agrippa-io/node-utils/src'
-import * as mongoose from '@agrippa-io/node-mongoose/src'
-import { ExpressRequestMongooseUtil, UseCaseExecutor } from '@agrippa-io/node-mongoose/src/utils'
+import { Logger } from '@agrippa-io/node-utils'
+import { mongoose } from '@agrippa-io/node-mongoose'
+import { ExpressRequestMongooseUtil, UseCaseExecutor } from '@agrippa-io/node-mongoose'
 import express from 'express'
 import MODEL from '../../constants/models'
 import Interface{{ pascalCase model }}Doc from '../../models/{{ pascalCase model }}/interfaces/document'
-import Mongoose{{ pascalCase model }}PatchOne from '../../usecases/{{ pascalCase model }}/MongoosePatchOne'
+import {{ pascalCase model }}PatchOne from '../../usecases/{{ pascalCase model }}/patch.resource.mongoose'
 
 export default async (request: express.Request, response: express.Response) => {
   Logger.route('PATCH /v3/{{ snakeCase model }}s/:id')
@@ -18,7 +18,7 @@ export default async (request: express.Request, response: express.Response) => {
   const filterQuery: mongoose.FilterQuery<Interface{{ pascalCase model }}Doc> = { _id: id }
   const updateQuery: mongoose.UpdateQuery<Interface{{ pascalCase model }}Doc> = queryBuilder.bodyUpdateQuery()
 
-  const patch{{ pascalCase model }}: Mongoose{{ pascalCase model }}PatchOne = new Mongoose{{ pascalCase model }}PatchOne({
+  const patch{{ pascalCase model }}: {{ pascalCase model }}PatchOne = new {{ pascalCase model }}PatchOne({
     options: {},
     filterQuery,
     updateQuery,
