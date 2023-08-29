@@ -18,6 +18,11 @@ module.exports = {
     'Creates a fully functional REST API Endpoint, including the Mongoose Model, Express Router and Controller',
   prompts: [
     {
+      type: 'input',
+      name: 'appName',
+      message: 'Enter App name (snake-case): ',
+    },
+    {
       type: 'list',
       name: 'version',
       message: 'Select Version:',

@@ -2,6 +2,7 @@
   "scripts": {
     "build": "tsc",
     "start:dev": "ts-node-dev --transpile-only --respawn --watch src,test src/server.ts",
+    "start:watch": "ts-node-dev --poll --respawn --transpile-only --exit-child --no-notify --ignore-watch node_modules -r tsconfig-paths/register ./src/server.ts",
     "start": "node ./dist/server.js"
   },
   "dependencies": {
