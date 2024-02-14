@@ -76,7 +76,7 @@ RouterV3Models.use('/plans', PlanRouter)
 // Leave the folling alone as it registers middleware used for Authentication
 // Register v<N> Routes
 const RouterV<N> = express.Router()
-RouterV1.use('/v1/health', VigorHealthChecker)
+RouterV1.use('/v1/health', HealthChecker)
 RouterV1.use('/v1/auth', AuthenticationRouter)
 RouterV1.use(
   '/v1',
